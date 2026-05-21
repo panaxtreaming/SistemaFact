@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturador PanaXtreaming - Con Logos en Factura</title>
+    <!-- Google Fonts para mejor tipografía -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif; 
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .editor-panel { 
+            background: white; 
+            border-radius: 24px; 
+            padding: 30px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease;
+        }
+        
+        .editor-panel:hover { transform: translateY(-2px); }
+        
+        .editor-panel h2 { 
+            color: #1e293b; 
+            border-left: 5px solid #dc2626; 
+            padding-left: 15px; 
+            margin-bottom: 20px; 
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        
+        .flex-row { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px; align-items: flex-end; }
+        .form-group { display: flex; flex-direction: column; flex: 1; min-width: 180px; }
+        .form-group label { 
+            font-weight: 600; 
+            color: #334155; 
+            margin-bottom: 8px; 
+            font-size: 0.85rem;
+            letter-spacing: -0.2px;
+        }
+        .form-group input, .form-group select { 
+            padding: 10px 14px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px; 
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+        }
+        .form-group textarea { 
+            padding: 10px 14px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px; 
+            font-size: 0.9rem; 
+            resize: vertical; 
+            font-family: 'Poppins', sans-serif;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+        }
+        
+        .tipo-operacion-container { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            margin-bottom: 20px; 
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 15px 20px; 
+            border-radius: 20px; 
+        }
+        .tipo-operacion-container label { font-weight: 700; color: #1e293b; letter-spacing: -0.2px; }
+        .tipo-select { 
+            padding: 10px 20px; 
+            border: 2px solid #dc2626; 
+            border-radius: 40px; 
+            background: white; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease;
+        }
+        .tipo-select:hover { background: #dc2626; color: white; transform: scale(1.02); }
+        .tipo-badge { 
+            background: #dc2626; 
+            color: white; 
+            padding: 6px 16px; 
+            border-radius: 40px; 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            box-shadow: 0 2px 8px rgba(220,38,38,0.3);
+        }
+        
+        .plan-preview { 
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #dc2626; 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin: 20px 0; 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .plan-preview-img { 
+            width: 80px; 
+            height: 80px; 
+            object-fit: cover; 
+            border-radius: 16px; 
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .plan-preview-info { flex: 1; }
+        .plan-preview-nombre { font-weight: 800; font-size: 1.2rem; color: #b91c1c; letter-spacing: -0.3px; }
+        .plan-preview-duracion { color: #334155; margin: 5px 0; font-weight: 500; }
+        .plan-preview-precio { font-weight: 800; font-size: 1.3rem; color: #166534; }
+        
+        .bcv-box { 
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #22c55e; 
+            border-radius: 20px; 
+            padding: 15px 20px; 
+            margin-bottom: 20px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        .bcv-box h3 { color: #15803d; font-weight: 700; }
+        .precio-bs-destacado { font-size: 24px; font-weight: 800; color: #166534; letter-spacing: -0.5px; }
+        
+        .btn { 
+            background: #dc2626; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 40px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+            margin-top: 15px; 
+            margin-right: 10px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .btn:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+        .btn-success { background: #22c55e; }
+        .btn-success:hover { background: #16a34a; }
+        
+        /* Factura mejorada con espacio para logos del servicio */
+        .invoice { 
+            background: white; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 30px; 
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25); 
+            font-family: 'Roboto Mono', 'Courier New', monospace; 
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .invoice-header { text-align: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 20px; margin-bottom: 20px; }
+        .invoice-top-image { text-align: center; margin-bottom: 20px; background: #f8fafc; padding: 15px; border-radius: 20px; }
+        .invoice-top-image img { max-width: 200px; height: auto; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .servicios-titulo { 
+            text-align: center; 
+            font-size: 18px; 
+            font-weight: 800; 
+            color: #b91c1c; 
+            margin-top: 5px; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Nuevo: Contenedor de logos del servicio contratado */
+        .servicio-logos {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fef2f2;
+            border-radius: 16px;
+            border: 1px solid #fecaca;
+        }
+        .servicio-logos img {
+            max-width: 80px;
+            height: auto;
+            margin: 0 10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .servicio-logos span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b91c1c;
+            margin: 0 10px;
+        }
+        
+        .invoice-header h1 { 
+            font-size: 28px; 
+            letter-spacing: 3px; 
+            color: #b91c1c; 
+            margin-top: 5px;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+        }
+        .company-info, .customer-info { 
+            font-size: 11px; 
+            line-height: 1.5; 
+            margin-bottom: 15px; 
+            border: 1px solid #e2e8f0; 
+            padding: 12px; 
+            border-radius: 12px;
+            background: #fafafa;
+        }
+        .row-2col { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 15px; }
+        .row-2col > div { flex: 1; }
+        .payment-method { 
+            background: #fef9c3; 
+            padding: 12px; 
+            font-size: 11px; 
+            border-left: 5px solid #eab308; 
+            margin-bottom: 15px; 
+            white-space: pre-line;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        table.invoice-items { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 20px 0; 
+            font-size: 12px; 
+            font-family: 'Roboto Mono', monospace;
+        }
+        table.invoice-items th, table.invoice-items td { 
+            border: 1px solid #cbd5e1; 
+            padding: 10px; 
+            text-align: left; 
+            vertical-align: top; 
+        }
+        table.invoice-items th { 
+            background: #f1f5f9; 
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+        .total-row { 
+            text-align: right; 
+            font-weight: 800; 
+            font-size: 16px; 
+            border-top: 2px solid #cbd5e1; 
+            padding-top: 12px; 
+            margin-top: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
+        .renovation-box { 
+            background: #d9f0e6; 
+            padding: 12px; 
+            margin: 20px 0; 
+            font-size: 11px; 
+            font-family: 'Roboto Mono', monospace; 
+            border-left: 5px solid #15803d; 
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+        .footer-thanks { 
+            text-align: center; 
+            margin-top: 20px; 
+            font-size: 12px; 
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            color: #475569;
+        }
+        .print-button { text-align: center; margin-top: 20px; }
+        
+        #planSelector {
+            font-family: 'Poppins', monospace;
+            font-size: 0.95rem;
+            padding: 12px;
+            border-radius: 14px;
+            background: white;
+        }
+        
+        .resumen-box {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin: 15px 0;
+            font-weight: 600;
+            border: 1px solid #c7d2fe;
+        }
+        
+        @media print { 
+            body { background: white; padding: 0; margin: 0; } 
+            .editor-panel, .print-button, .btn { display: none; } 
+            .invoice { box-shadow: none; margin: 0; padding: 15px; border-radius: 0; } 
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="editor-panel">
+        <h2>💰 Precio BCV del día y configuración</h2>
+        <div class="bcv-box">
+            <div><h3>🇻🇪 Tasa de cambio del BCV</h3><div>Fecha: <input type="date" id="fechaBcv" value="2026-05-21"></div></div>
+            <div><label>💲 1 USD = </label><input type="number" id="tasaBcv" value="62.50" step="0.01" style="width: 120px; font-size: 20px; font-weight: bold;"> <strong>Bs</strong></div>
+            <div class="precio-bs-destacado">📅 Precio BCV del día: <span id="tasaMostrada">62,50</span> Bs/USD</div>
+        </div>
+
+        <div class="tipo-operacion-container">
+            <label>📋 TIPO DE OPERACIÓN:</label>
+            <select id="tipoOperacion" class="tipo-select">
+                <option value="SUSCRIPCION">🆕 SUSCRIPCIÓN NUEVA</option>
+                <option value="RENOVACION" selected>🔄 RENOVACIÓN</option>
+                <option value="GARANTIA">✅ GARANTÍA</option>
+            </select>
+            <span id="tipoBadge" class="tipo-badge">RENOVACIÓN</span>
+        </div>
+
+        <h2>📺 Selecciona tu Plan</h2>
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label>Planes disponibles:</label>
+            <select id="planSelector" style="font-size: 1rem; padding: 12px;"></select>
+        </div>
+        
+        <div class="plan-preview" id="planPreview">
+            <img id="previewImg" class="plan-preview-img" src="" alt="Plan">
+            <div class="plan-preview-info">
+                <div class="plan-preview-nombre" id="previewNombre">-</div>
+                <div class="plan-preview-duracion" id="previewDuracion">-</div>
+                <div class="plan-preview-precio" id="previewPrecio">$0,00 USD</div>
+            </div>
+        </div>
+
+        <div class="flex-row">
+            <div class="form-group" style="flex: 2;">
+                <label>📝 DETALLE DE LA SUSCRIPCIÓN:</label>
+                <textarea id="detalleSuscripcion" rows="3" placeholder="Ej: Usuario: juanperez, Correo: juan@example.com, Dispositivo: Smart TV, Notas adicionales..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>💰 Monto adicional en USD (opcional)</label>
+                <input type="number" id="montoExtraUSD" value="0" step="0.01" placeholder="0.00">
+            </div>
+        </div>
+
+        <div class="resumen-box">
+            <strong>📊 Resumen:</strong> Plan seleccionado: <span id="planSeleccionadoTexto">Ninguno</span> | 
+            <strong>Precio USD: $<span id="precioUSDResumen">0,00</span></strong> | 
+            <strong>Precio en Bs: <span id="precioBSResumen">0,00</span> Bs</strong>
+        </div>
+
+        <h3>📦 Datos del cliente</h3>
+        <div class="flex-row">
+            <div class="form-group"><label>Pedido #</label><input type="text" id="pedido" readonly style="background:#f1f5f9; font-weight:bold;"></div>
+            <div class="form-group"><label>Fecha/Hora</label><input type="text" id="fecha" value="Mié, mayo 21, 2026, 10:30:00 a. m."></div>
+            <div class="form-group"><label>Cliente</label><input type="text" id="cliente_nombre" value="López Meza"></div>
+            <div class="form-group"><label>Cédula</label><input type="text" id="cliente_cedula" value="9235716"></div>
+            <div class="form-group"><label>Teléfono</label><input type="text" id="cliente_tel" value="+58 424-7581219"></div>
+            <div class="form-group"><label>Correo</label><input type="text" id="cliente_email" value="venezuela070402@gmail.com"></div>
+            <div class="form-group">
+                <label>Método de pago</label>
+                <select id="pago_metodo">
+                    <option value="PAGO MOVIL (MERCANTIL 13967475 04120754787)">💳 PAGO MOVIL MERCANTIL</option>
+                    <option value="PAGO MOVIL (BANCO VENEZUELA 13967475 04120754787)">🏦 PAGO MOVIL BANCO VENEZUELA</option>
+                    <option value="BINANCE: Usuario: panaxstreaming@gmail.com">🪙 BINANCE - panaxstreaming@gmail.com</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn" onclick="generarFactura()">🔄 Actualizar Factura</button>
+        <button class="btn btn-success" onclick="nuevaFactura()">✨ Nueva Factura</button>
+    </div>
+
+    <div id="factura-aqui"></div>
+    <div class="print-button"><button class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button></div>
+</div>
+
+<script>
+    function formatNumberVES(numero) {
+        let partes = numero.toFixed(2).split('.');
+        let entero = partes[0];
+        let decimal = partes[1];
+        entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return entero + "," + decimal;
+    }
+
+    function getTipoOperacionTexto() {
+        const tipo = document.getElementById('tipoOperacion').value;
+        switch(tipo) {
+            case 'SUSCRIPCION': return 'SUSCRIPCIÓN NUEVA';
+            case 'RENOVACION': return 'RENOVACIÓN';
+            case 'GARANTIA': return 'GARANTÍA';
+            default: return 'OPERACIÓN';
+        }
+    }
+
+    function getTipoOperacionIcono() {
+        const tipo = document.getElementById('tipoOperacion').value;
+        switch(tipo) {
+            case 'SUSCRIPCION': return '🆕';
+            case 'RENOVACION': return '🔄';
+            case 'GARANTIA': return '✅';
+            default: return '📋';
+        }
+    }
+
+    const imgStella = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg";
+    const imgPana = "https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg";
+    
+    const planes = [
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa (4 dispositivos)", precio: 8.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
+        { nombre: "PANAXTREAMING", duracion: "Dos pantallas", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "1 mes - 1 dispositivo", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "2 meses", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "3 meses", precio: 9.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV", precio: 5.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + STELLA TV", precio: 5.00, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV (alternativo)", precio: 4.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
+        { nombre: "STELLA TV", duracion: "1 mes - 1 dispositivo", precio: 4.50, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "2 meses", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "3 meses", precio: 12.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "6 meses", precio: 25.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "12 meses", precio: 45.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "6 meses adicional", precio: 15.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "12 meses adicional", precio: 29.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "2 pantallas", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 3 dispositivos", precio: 10.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
+        { nombre: "FLUJO TV", duracion: "1 mes - 1 dispositivo", precio: 4.00, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 3 dispositivos", precio: 8.50, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella" }
+    ];
+
+    let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
+    let planSeleccionado = planes[0];
+    
+    function generarNumeroPedido() { let fecha = new Date(); return `#PAN${fecha.getFullYear()}${String(fecha.getMonth()+1).padStart(2,'0')}${String(fecha.getDate()).padStart(2,'0')}-${String(contadorPedido).padStart(4,'0')}`; }
+    function actualizarCampoPedido() { document.getElementById('pedido').value = generarNumeroPedido(); }
+    function incrementarContador() { contadorPedido++; localStorage.setItem('contadorPedido', contadorPedido); }
+
+    function llenarSelectorPlanes() {
+        const selector = document.getElementById('planSelector');
+        selector.innerHTML = '';
+        let categorias = [
+            { nombre: "📺 PANAXTREAMING", planes: planes.filter(p => p.categoria === "pana") },
+            { nombre: "⭐ STELLA TV", planes: planes.filter(p => p.categoria === "stella") },
+            { nombre: "🎬 FLUJO TV", planes: planes.filter(p => p.categoria === "flujo") }
+        ];
+        categorias.forEach(cat => {
+            if (cat.planes.length > 0) {
+                let separator = document.createElement('option');
+                separator.disabled = true;
+                separator.textContent = `─── ${cat.nombre} ───`;
+                separator.style.fontWeight = 'bold';
+                separator.style.backgroundColor = '#f0f0f0';
+                selector.appendChild(separator);
+                cat.planes.forEach((plan, idx) => {
+                    const option = document.createElement('option');
+                    option.value = planes.indexOf(plan);
+                    option.textContent = `   ${plan.nombre} - ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
+                    selector.appendChild(option);
+                });
+            }
+        });
+        selector.addEventListener('change', (e) => {
+            const idx = parseInt(e.target.value);
+            if (!isNaN(idx)) {
+                planSeleccionado = planes[idx];
+                actualizarPreview();
+                actualizarResumenPrecios();
+                generarFactura();
+            }
+        });
+        if (planes.length > 0) {
+            selector.value = "0";
+            planSeleccionado = planes[0];
+            actualizarPreview();
+        }
+    }
+    
+    function actualizarPreview() {
+        document.getElementById('previewNombre').textContent = planSeleccionado.nombre;
+        document.getElementById('previewDuracion').textContent = planSeleccionado.duracion;
+        document.getElementById('previewPrecio').textContent = `$ ${formatNumberVES(planSeleccionado.precio)} USD`;
+        const tipoTexto = getTipoOperacionTexto();
+        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} ($ ${formatNumberVES(planSeleccionado.precio)})`;
+        document.getElementById('tipoBadge').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto}`;
+        const previewImg = document.getElementById('previewImg');
+        if (planSeleccionado.esCombo && planSeleccionado.imagenCombo) {
+            previewImg.src = planSeleccionado.imagenCombo[0];
+            previewImg.style.border = "2px solid #dc2626";
+        } else {
+            previewImg.src = planSeleccionado.imagen || imgStella;
+            previewImg.style.border = "none";
+        }
+    }
+
+    function actualizarResumenPrecios() {
+        let tasa = parseFloat(document.getElementById('tasaBcv').value) || 0;
+        let extraUSD = parseFloat(document.getElementById('montoExtraUSD').value) || 0;
+        let totalUSD = planSeleccionado.precio + extraUSD;
+        let totalBs = totalUSD * tasa;
+        document.getElementById('precioUSDResumen').innerText = formatNumberVES(totalUSD);
+        document.getElementById('precioBSResumen').innerText = formatNumberVES(totalBs);
+        document.getElementById('tasaMostrada').innerHTML = formatNumberVES(tasa);
+    }
+
+    function nuevaFactura() {
+        incrementarContador();
+        let ahora = new Date();
+        let fechaActual = ahora.toLocaleString('es-ES', { weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true }).replace('.','').replace(/a\.\s*m\./,'a. m.').replace(/p\.\s*m\./,'p. m.');
+        document.getElementById('fecha').value = fechaActual;
+        document.getElementById('cliente_nombre').value = '';
+        document.getElementById('cliente_cedula').value = '';
+        document.getElementById('cliente_tel').value = '';
+        document.getElementById('cliente_email').value = '';
+        document.getElementById('detalleSuscripcion').value = '';
+        document.getElementById('montoExtraUSD').value = '0';
+        actualizarCampoPedido();
+        actualizarResumenPrecios();
+        generarFactura();
+        alert(`✅ Nueva factura creada con número: ${document.getElementById('pedido').value}`);
+    }
+
+    function getLogosHtml() {
+        const service = planSeleccionado.logoService;
+        if (service === 'pana') {
+            return `<div class="servicio-logos"><img src="${imgPana}" alt="PANAXTREAMING"><span>🎬 SERVICIO CONTRATADO: PANAXTREAMING 🎬</span></div>`;
+        } else if (service === 'stella') {
+            return `<div class="servicio-logos"><img src="${imgStella}" alt="STELLA TV"><span>⭐ SERVICIO CONTRATADO: STELLA TV ⭐</span></div>`;
+        } else if (service === 'combo') {
+            return `<div class="servicio-logos"><img src="${imgPana}" alt="PANAXTREAMING"><span>+</span><img src="${imgStella}" alt="STELLA TV"><br><span>🎯 COMBO: PANAXTREAMING + STELLA TV 🎯</span></div>`;
+        }
+        return '';
+    }
+
+    function generarFactura() {
+        let tasa = parseFloat(document.getElementById('tasaBcv').value) || 0;
+        let fechaBcv = document.getElementById('fechaBcv').value;
+        let extraUSD = parseFloat(document.getElementById('montoExtraUSD').value) || 0;
+        let detalleSuscripcion = document.getElementById('detalleSuscripcion').value;
+        let totalUSD = planSeleccionado.precio + extraUSD;
+        let totalBs = totalUSD * tasa;
+        let pedido = document.getElementById('pedido').value;
+        let fecha = document.getElementById('fecha').value;
+        let clienteNombre = document.getElementById('cliente_nombre').value || 'CLIENTE NO ESPECIFICADO';
+        let cedula = document.getElementById('cliente_cedula').value || 'NO REGISTRA';
+        let clienteTel = document.getElementById('cliente_tel').value || 'NO REGISTRA';
+        let clienteEmail = document.getElementById('cliente_email').value || 'NO REGISTRA';
+        let metodoPago = document.getElementById('pago_metodo').value;
+        let tipoOperacion = getTipoOperacionTexto();
+        let tipoIcono = getTipoOperacionIcono();
+        let logosHtml = getLogosHtml();
+
+        let itemsHtml = `<tr>
+            <td><strong>${tipoIcono} ${tipoOperacion}</strong><br>
+                ${planSeleccionado.nombre} - ${planSeleccionado.duracion}<br>
+                <span style="font-size: 10px; color: #555;">📌 BCV ${fechaBcv}: 1 USD = ${formatNumberVES(tasa)} Bs</span></td>
+            <td style="text-align:center">1</td>
+            <td style="text-align:right">$ ${formatNumberVES(planSeleccionado.precio)}</td>
+        </tr>`;
+        
+        if (detalleSuscripcion.trim() !== "") {
+            itemsHtml += `<tr>
+                <td><span style="font-weight: bold;">📝 DETALLE DE SUSCRIPCIÓN:</span><br>${detalleSuscripcion.replace(/\n/g, '<br>')}</td>
+                <td style="text-align:center">-</td>
+                <td style="text-align:right">-</td>
+            </tr>`;
+        }
+        
+        if (extraUSD > 0) {
+            itemsHtml += `<tr>
+                <td>💰 Servicio adicional / Extra</td>
+                <td style="text-align:center">1</td>
+                <td style="text-align:right">$ ${formatNumberVES(extraUSD)}</td>
+            </tr>`;
+        }
+
+        document.getElementById('factura-aqui').innerHTML = `
+            <div class="invoice">
+                <div class="invoice-top-image"><img src="https://i.pinimg.com/736x/c0/3e/ed/c03eeddad09b91f76dd63ae373d0d27e.jpg" alt="PanaXtreaming Logo"></div>
+                <div class="servicios-titulo">SERVICIOS PANAXTREAMING</div>
+                ${logosHtml}
+                <div class="invoice-header"><h1>PANAXTREAMING</h1><div class="slogan">panaxtreamingtvgo.company.site/products</div></div>
+                <div class="company-info"><strong>PANAXTREAMING</strong><br>Caracas - Venezuela<br>Dtto. Capital, Distrito Federal 1014<br>Atención al cliente: +58 416-1379797 / panaxtreaming@gmail.com</div>
+                <div class="row-2col"><div class="customer-info"><strong>DATOS DEL CLIENTE</strong><br>Nombre: ${clienteNombre}<br>CÉDULA: ${cedula}<br>CARACAS, 1014 - Venezuela<br>Tel: ${clienteTel}<br>Email: ${clienteEmail}</div>
+                <div class="customer-info"><strong>PEDIDO</strong><br>Pedido ${pedido}<br>Fecha: ${fecha}<br><strong>TIPO: ${tipoIcono} ${tipoOperacion}</strong></div></div>
+                <div class="payment-method">💰 MÉTODO DE PAGO:<br>${metodoPago}<br><br>🇻🇪 TASA BCV (${fechaBcv}): 1 USD = ${formatNumberVES(tasa)} Bs</div>
+                <table class="invoice-items"><thead><tr><th>Detalle</th><th>Cant.</th><th>Precio USD</th></tr></thead><tbody>${itemsHtml}</tbody>追赶
+                <div class="total-row">TOTAL EN USD: $ ${formatNumberVES(totalUSD)}<br><span class="total-bs">🇻🇪 TOTAL EN BOLÍVARES (BCV ${fechaBcv}): ${formatNumberVES(totalBs)} Bs</span></div>
+                <div class="renovation-box">
+                    ${tipoIcono} ${tipoOperacion} CON ÉXITO ${tipoIcono}<br>
+                    👤 Usuario: panastella103<br>
+                    🔑 Nueva clave: 252525<br>
+                    📅 Fecha de ${tipoOperacion.toLowerCase()}: ${fecha}<br>
+                    💲 Pagado: $ ${formatNumberVES(totalUSD)} / ${formatNumberVES(totalBs)} Bs
+                </div>
+                <div class="footer-thanks">¡Gracias por su pedido!<br>${fecha} - Pedido ${pedido}</div>
+            </div>`;
+        actualizarResumenPrecios();
+    }
+
+    document.getElementById('tasaBcv').addEventListener('input', () => { actualizarResumenPrecios(); generarFactura(); });
+    document.getElementById('montoExtraUSD').addEventListener('input', () => { actualizarResumenPrecios(); generarFactura(); });
+    document.getElementById('detalleSuscripcion').addEventListener('input', generarFactura);
+    document.getElementById('pago_metodo').addEventListener('change', generarFactura);
+    document.getElementById('tipoOperacion').addEventListener('change', () => { actualizarPreview(); actualizarResumenPrecios(); generarFactura(); });
+    ['fecha', 'cliente_nombre', 'cliente_cedula', 'cliente_tel', 'cliente_email'].forEach(id => document.getElementById(id).addEventListener('input', generarFactura));
+    document.getElementById('fechaBcv').addEventListener('input', generarFactura);
+    
+    llenarSelectorPlanes();
+    actualizarCampoPedido();
+    generarFactura();
+</script>
+</body>
+</html>
