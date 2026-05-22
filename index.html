@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturador PanaXtreaming - Con Logos en Factura</title>
-    <!-- Google Fonts para mejor tipografía -->
+    <title>Facturador PanaXtreaming - Orden Corregido</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -167,20 +167,34 @@
         .btn-success { background: #22c55e; }
         .btn-success:hover { background: #16a34a; }
         
-        /* Factura mejorada con espacio para logos del servicio */
         .invoice { 
             background: white; 
             max-width: 900px; 
             margin: 0 auto; 
-            padding: 30px; 
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25); 
             font-family: 'Roboto Mono', 'Courier New', monospace; 
             border-radius: 20px;
             border: 1px solid #e2e8f0;
+            overflow: hidden;
         }
-        .invoice-header { text-align: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 20px; margin-bottom: 20px; }
-        .invoice-top-image { text-align: center; margin-bottom: 20px; background: #f8fafc; padding: 15px; border-radius: 20px; }
-        .invoice-top-image img { max-width: 200px; height: auto; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        .invoice-contenido {
+            padding: 30px;
+        }
+        
+        .invoice-header-superior {
+            background: #000000;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .invoice-header-superior img {
+            max-width: 200px;
+            height: auto;
+            filter: brightness(1.1);
+            margin: 0 auto;
+            display: block;
+        }
+        
         .servicios-titulo { 
             text-align: center; 
             font-size: 18px; 
@@ -192,7 +206,6 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        /* Nuevo: Contenedor de logos del servicio contratado */
         .servicio-logos {
             text-align: center;
             margin: 15px 0;
@@ -215,14 +228,6 @@
             margin: 0 10px;
         }
         
-        .invoice-header h1 { 
-            font-size: 28px; 
-            letter-spacing: 3px; 
-            color: #b91c1c; 
-            margin-top: 5px;
-            font-weight: 800;
-            font-family: 'Poppins', sans-serif;
-        }
         .company-info, .customer-info { 
             font-size: 11px; 
             line-height: 1.5; 
@@ -234,6 +239,21 @@
         }
         .row-2col { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 15px; }
         .row-2col > div { flex: 1; }
+        
+        .detalle-suscripcion-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-left: 5px solid #0284c7;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        .detalle-suscripcion-box strong {
+            color: #0369a1;
+        }
+        
         .payment-method { 
             background: #fef9c3; 
             padding: 12px; 
@@ -262,6 +282,22 @@
             font-weight: 700;
             font-family: 'Poppins', sans-serif;
         }
+        
+        /* Mensaje de éxito (usuario, clave, etc.) - Ahora va antes del total */
+        .mensaje-exito {
+            background: #d9f0e6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 16px;
+            font-size: 11px;
+            font-family: 'Roboto Mono', monospace;
+            border-left: 5px solid #15803d;
+            line-height: 1.8;
+        }
+        .mensaje-exito strong {
+            color: #166534;
+        }
+        
         .total-row { 
             text-align: right; 
             font-weight: 800; 
@@ -272,21 +308,12 @@
             font-family: 'Poppins', sans-serif;
         }
         .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
-        .renovation-box { 
-            background: #d9f0e6; 
-            padding: 12px; 
-            margin: 20px 0; 
-            font-size: 11px; 
-            font-family: 'Roboto Mono', monospace; 
-            border-left: 5px solid #15803d; 
-            border-radius: 12px;
-            line-height: 1.6;
-        }
+        
         .footer-thanks { 
             text-align: center; 
             margin-top: 20px; 
-            font-size: 12px; 
-            font-weight: 800;
+            font-size: 11px; 
+            font-weight: 500;
             font-family: 'Poppins', sans-serif;
             color: #475569;
         }
@@ -312,7 +339,8 @@
         @media print { 
             body { background: white; padding: 0; margin: 0; } 
             .editor-panel, .print-button, .btn { display: none; } 
-            .invoice { box-shadow: none; margin: 0; padding: 15px; border-radius: 0; } 
+            .invoice { box-shadow: none; margin: 0; border-radius: 0; } 
+            .invoice-header-superior { border-radius: 0; }
         }
     </style>
 </head>
@@ -354,7 +382,7 @@
 
         <div class="flex-row">
             <div class="form-group" style="flex: 2;">
-                <label>📝 DETALLE DE LA SUSCRIPCIÓN:</label>
+                <label>📝 DATOS DE LA SUSCRIPCIÓN (Usuario, correo, dispositivo, etc.):</label>
                 <textarea id="detalleSuscripcion" rows="3" placeholder="Ej: Usuario: juanperez, Correo: juan@example.com, Dispositivo: Smart TV, Notas adicionales..."></textarea>
             </div>
             <div class="form-group">
@@ -372,7 +400,7 @@
         <h3>📦 Datos del cliente</h3>
         <div class="flex-row">
             <div class="form-group"><label>Pedido #</label><input type="text" id="pedido" readonly style="background:#f1f5f9; font-weight:bold;"></div>
-            <div class="form-group"><label>Fecha/Hora</label><input type="text" id="fecha" value="Mié, mayo 21, 2026, 10:30:00 a. m."></div>
+            <div class="form-group"><label>Fecha/Hora</label><input type="text" id="fecha" readonly style="background:#f1f5f9; font-weight:500;"></div>
             <div class="form-group"><label>Cliente</label><input type="text" id="cliente_nombre" value="López Meza"></div>
             <div class="form-group"><label>Cédula</label><input type="text" id="cliente_cedula" value="9235716"></div>
             <div class="form-group"><label>Teléfono</label><input type="text" id="cliente_tel" value="+58 424-7581219"></div>
@@ -392,10 +420,34 @@
     </div>
 
     <div id="factura-aqui"></div>
-    <div class="print-button"><button class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button></div>
+    <div class="print-button">
+        <button class="btn" onclick="guardarPDF()">🖨️ Guardar como PDF</button>
+    </div>
 </div>
 
 <script>
+    function obtenerFechaHoraActual() {
+        const ahora = new Date();
+        const opciones = { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit', 
+            hour12: true 
+        };
+        let fechaActual = ahora.toLocaleString('es-ES', opciones);
+        fechaActual = fechaActual.replace(/\./g, '').replace(/a\.\s*m\./g, 'a. m.').replace(/p\.\s*m\./g, 'p. m.');
+        fechaActual = fechaActual.charAt(0).toUpperCase() + fechaActual.slice(1);
+        return fechaActual;
+    }
+
+    function actualizarFechaHora() {
+        document.getElementById('fecha').value = obtenerFechaHoraActual();
+    }
+
     function formatNumberVES(numero) {
         let partes = numero.toFixed(2).split('.');
         let entero = partes[0];
@@ -428,25 +480,25 @@
     const imgPana = "https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg";
     
     const planes = [
-        { nombre: "PANAXTREAMING", duracion: "Cuenta completa (4 dispositivos)", precio: 8.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
-        { nombre: "PANAXTREAMING", duracion: "Dos pantallas", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "1 mes - 1 dispositivo", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "2 meses", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "3 meses", precio: 9.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV", precio: 5.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + STELLA TV", precio: 5.00, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV (alternativo)", precio: 4.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo" },
-        { nombre: "STELLA TV", duracion: "1 mes - 1 dispositivo", precio: 4.50, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "2 meses", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "3 meses", precio: 12.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "6 meses", precio: 25.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "12 meses", precio: 45.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "6 meses adicional", precio: 15.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "12 meses adicional", precio: 29.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "2 pantallas", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "STELLA TV", duracion: "Cuenta completa 3 dispositivos", precio: 10.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella" },
-        { nombre: "FLUJO TV", duracion: "1 mes - 1 dispositivo", precio: 4.00, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella" },
-        { nombre: "FLUJO TV", duracion: "Cuenta completa 3 dispositivos", precio: 8.50, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella" }
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa (4 dispositivos)", precio: 8.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa", dispositivos: "4 dispositivos" },
+        { nombre: "PANAXTREAMING", duracion: "Dos pantallas", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Dos pantallas", dispositivos: "2 dispositivos simultáneos" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "1 mes - 1 dispositivo", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "2 meses", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "PANTALLA PANAXTREAMING", duracion: "3 meses", precio: 9.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV", precio: 5.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + STELLA TV", precio: 5.00, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
+        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV (alternativo)", precio: 4.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
+        { nombre: "STELLA TV", duracion: "1 mes - 1 dispositivo", precio: 4.50, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "2 meses", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "3 meses", precio: 12.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "6 meses", precio: 25.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "12 meses", precio: 45.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "6 meses adicional", precio: 15.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Extensión", dispositivos: "Mantiene dispositivos" },
+        { nombre: "STELLA TV", duracion: "12 meses adicional", precio: 29.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Extensión", dispositivos: "Mantiene dispositivos" },
+        { nombre: "STELLA TV", duracion: "2 pantallas", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Múltiples pantallas", dispositivos: "2 dispositivos simultáneos" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 3 dispositivos", precio: 10.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa", dispositivos: "3 dispositivos" },
+        { nombre: "FLUJO TV", duracion: "1 mes - 1 dispositivo", precio: 4.00, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 3 dispositivos", precio: 8.50, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella", tipoServicio: "Cuenta completa", dispositivos: "3 dispositivos" }
     ];
 
     let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
@@ -475,7 +527,7 @@
                 cat.planes.forEach((plan, idx) => {
                     const option = document.createElement('option');
                     option.value = planes.indexOf(plan);
-                    option.textContent = `   ${plan.nombre} - ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
+                    option.textContent = `   ${plan.nombre} - ${plan.duracion} - ${plan.tipoServicio} (${plan.dispositivos}) - $ ${formatNumberVES(plan.precio)} USD`;
                     selector.appendChild(option);
                 });
             }
@@ -498,10 +550,10 @@
     
     function actualizarPreview() {
         document.getElementById('previewNombre').textContent = planSeleccionado.nombre;
-        document.getElementById('previewDuracion').textContent = planSeleccionado.duracion;
+        document.getElementById('previewDuracion').textContent = `${planSeleccionado.duracion} | ${planSeleccionado.tipoServicio} | ${planSeleccionado.dispositivos}`;
         document.getElementById('previewPrecio').textContent = `$ ${formatNumberVES(planSeleccionado.precio)} USD`;
         const tipoTexto = getTipoOperacionTexto();
-        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} ($ ${formatNumberVES(planSeleccionado.precio)})`;
+        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} (${planSeleccionado.tipoServicio} - ${planSeleccionado.dispositivos}) - $ ${formatNumberVES(planSeleccionado.precio)}`;
         document.getElementById('tipoBadge').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto}`;
         const previewImg = document.getElementById('previewImg');
         if (planSeleccionado.esCombo && planSeleccionado.imagenCombo) {
@@ -525,9 +577,7 @@
 
     function nuevaFactura() {
         incrementarContador();
-        let ahora = new Date();
-        let fechaActual = ahora.toLocaleString('es-ES', { weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true }).replace('.','').replace(/a\.\s*m\./,'a. m.').replace(/p\.\s*m\./,'p. m.');
-        document.getElementById('fecha').value = fechaActual;
+        actualizarFechaHora();
         document.getElementById('cliente_nombre').value = '';
         document.getElementById('cliente_cedula').value = '';
         document.getElementById('cliente_tel').value = '';
@@ -570,21 +620,26 @@
         let tipoIcono = getTipoOperacionIcono();
         let logosHtml = getLogosHtml();
 
+        let detalleHtml = '';
+        if (detalleSuscripcion.trim() !== "") {
+            detalleHtml = `
+                <div class="detalle-suscripcion-box">
+                    <strong>📋 DATOS DE LA SUSCRIPCIÓN:</strong><br>
+                    ${detalleSuscripcion.replace(/\n/g, '<br>')}
+                </div>
+            `;
+        }
+
         let itemsHtml = `<tr>
             <td><strong>${tipoIcono} ${tipoOperacion}</strong><br>
-                ${planSeleccionado.nombre} - ${planSeleccionado.duracion}<br>
+                <strong>📺 ${planSeleccionado.nombre}</strong><br>
+                📅 ${planSeleccionado.duracion}<br>
+                🎯 Tipo: ${planSeleccionado.tipoServicio}<br>
+                📱 Dispositivos: ${planSeleccionado.dispositivos}<br>
                 <span style="font-size: 10px; color: #555;">📌 BCV ${fechaBcv}: 1 USD = ${formatNumberVES(tasa)} Bs</span></td>
             <td style="text-align:center">1</td>
             <td style="text-align:right">$ ${formatNumberVES(planSeleccionado.precio)}</td>
         </tr>`;
-        
-        if (detalleSuscripcion.trim() !== "") {
-            itemsHtml += `<tr>
-                <td><span style="font-weight: bold;">📝 DETALLE DE SUSCRIPCIÓN:</span><br>${detalleSuscripcion.replace(/\n/g, '<br>')}</td>
-                <td style="text-align:center">-</td>
-                <td style="text-align:right">-</td>
-            </tr>`;
-        }
         
         if (extraUSD > 0) {
             itemsHtml += `<tr>
@@ -594,28 +649,132 @@
             </tr>`;
         }
 
+        // Mensaje de éxito con los datos de la operación
+        let mensajeExitoHtml = `
+            <div class="mensaje-exito">
+                <strong>${tipoIcono} ${tipoOperacion} CON ÉXITO ${tipoIcono}</strong><br>
+                👤 Usuario: panastella103<br>
+                🔑 Nueva clave: 252525<br>
+                📅 Fecha de ${tipoOperacion.toLowerCase()}: ${fecha}<br>
+                💲 Pagado: $ ${formatNumberVES(totalUSD)} / ${formatNumberVES(totalBs)} Bs
+            </div>
+        `;
+
         document.getElementById('factura-aqui').innerHTML = `
-            <div class="invoice">
-                <div class="invoice-top-image"><img src="https://i.pinimg.com/736x/c0/3e/ed/c03eeddad09b91f76dd63ae373d0d27e.jpg" alt="PanaXtreaming Logo"></div>
-                <div class="servicios-titulo">SERVICIOS PANAXTREAMING</div>
-                ${logosHtml}
-                <div class="invoice-header"><h1>PANAXTREAMING</h1><div class="slogan">panaxtreamingtvgo.company.site/products</div></div>
-                <div class="company-info"><strong>PANAXTREAMING</strong><br>Caracas - Venezuela<br>Dtto. Capital, Distrito Federal 1014<br>Atención al cliente: +58 416-1379797 / panaxtreaming@gmail.com</div>
-                <div class="row-2col"><div class="customer-info"><strong>DATOS DEL CLIENTE</strong><br>Nombre: ${clienteNombre}<br>CÉDULA: ${cedula}<br>CARACAS, 1014 - Venezuela<br>Tel: ${clienteTel}<br>Email: ${clienteEmail}</div>
-                <div class="customer-info"><strong>PEDIDO</strong><br>Pedido ${pedido}<br>Fecha: ${fecha}<br><strong>TIPO: ${tipoIcono} ${tipoOperacion}</strong></div></div>
-                <div class="payment-method">💰 MÉTODO DE PAGO:<br>${metodoPago}<br><br>🇻🇪 TASA BCV (${fechaBcv}): 1 USD = ${formatNumberVES(tasa)} Bs</div>
-                <table class="invoice-items"><thead><tr><th>Detalle</th><th>Cant.</th><th>Precio USD</th></tr></thead><tbody>${itemsHtml}</tbody>追赶
-                <div class="total-row">TOTAL EN USD: $ ${formatNumberVES(totalUSD)}<br><span class="total-bs">🇻🇪 TOTAL EN BOLÍVARES (BCV ${fechaBcv}): ${formatNumberVES(totalBs)} Bs</span></div>
-                <div class="renovation-box">
-                    ${tipoIcono} ${tipoOperacion} CON ÉXITO ${tipoIcono}<br>
-                    👤 Usuario: panastella103<br>
-                    🔑 Nueva clave: 252525<br>
-                    📅 Fecha de ${tipoOperacion.toLowerCase()}: ${fecha}<br>
-                    💲 Pagado: $ ${formatNumberVES(totalUSD)} / ${formatNumberVES(totalBs)} Bs
+            <div class="invoice" id="facturaParaImprimir">
+                <div class="invoice-header-superior">
+                    <img src="https://i.pinimg.com/736x/c0/3e/ed/c03eeddad09b91f76dd63ae373d0d27e.jpg" alt="PanaXtreaming Logo">
                 </div>
-                <div class="footer-thanks">¡Gracias por su pedido!<br>${fecha} - Pedido ${pedido}</div>
+                <div class="invoice-contenido">
+                    <div class="servicios-titulo">SERVICIOS PANAXTREAMING</div>
+                    ${logosHtml}
+                    <div class="company-info"><strong>PANAXTREAMING</strong><br>Caracas - Venezuela<br>Dtto. Capital, Distrito Federal 1014<br>Atención al cliente: +58 416-1379797 / panaxtreaming@gmail.com</div>
+                    
+                    <div class="row-2col">
+                        <div class="customer-info">
+                            <strong>📋 DATOS DEL CLIENTE</strong><br>
+                            Nombre: ${clienteNombre}<br>
+                            CÉDULA: ${cedula}<br>
+                            CARACAS, 1014 - Venezuela<br>
+                            Tel: ${clienteTel}<br>
+                            Email: ${clienteEmail}
+                        </div>
+                        <div class="customer-info">
+                            <strong>📄 PEDIDO</strong><br>
+                            Pedido ${pedido}<br>
+                            Fecha: ${fecha}<br>
+                            <strong>TIPO: ${tipoIcono} ${tipoOperacion}</strong>
+                        </div>
+                    </div>
+                    
+                    ${detalleHtml}
+                    
+                    <div class="payment-method">
+                        💰 MÉTODO DE PAGO:<br>
+                        ${metodoPago}<br><br>
+                        🇻🇪 TASA BCV (${fechaBcv}): 1 USD = ${formatNumberVES(tasa)} Bs
+                    </div>
+                    
+                    <table class="invoice-items">
+                        <thead>
+                            <tr><th>DETALLE DEL SERVICIO CONTRATADO</th><th>CANT.</th><th>PRECIO USD</th>
+                        </thead>
+                        <tbody>${itemsHtml}</tbody>
+                    </table>
+                    
+                    <!-- MENSAJE DE ÉXITO - AHORA ANTES DEL TOTAL -->
+                    ${mensajeExitoHtml}
+                    
+                    <!-- TOTAL - AHORA DESPUÉS DEL MENSAJE DE ÉXITO -->
+                    <div class="total-row">
+                        TOTAL EN USD: $ ${formatNumberVES(totalUSD)}<br>
+                        <span class="total-bs">🇻🇪 TOTAL EN BOLÍVARES (BCV ${fechaBcv}): ${formatNumberVES(totalBs)} Bs</span>
+                    </div>
+                    
+                    <div class="footer-thanks">✨ ¡Gracias por su pedido! ✨<br>${fecha} - Pedido ${pedido}</div>
+                </div>
             </div>`;
         actualizarResumenPrecios();
+    }
+
+    function guardarPDF() {
+        const numeroPedido = document.getElementById('pedido').value;
+        const nombreArchivo = `COMPROBANTE DE PAGO Y DATOS DE SUSCRIPCION - ${numeroPedido}.pdf`;
+        const facturaHTML = document.getElementById('facturaParaImprimir').outerHTML;
+        
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'absolute';
+        iframe.style.width = '0px';
+        iframe.style.height = '0px';
+        iframe.style.border = '0';
+        document.body.appendChild(iframe);
+        
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>${nombreArchivo}</title>
+                <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body { font-family: 'Roboto Mono', 'Courier New', monospace; padding: 20px; background: white; }
+                    .invoice { background: white; max-width: 900px; margin: 0 auto; font-family: 'Roboto Mono', 'Courier New', monospace; border-radius: 20px; border: 1px solid #e2e8f0; overflow: hidden; }
+                    .invoice-header-superior { background: #000000; padding: 25px 20px; text-align: center; }
+                    .invoice-header-superior img { max-width: 200px; height: auto; margin: 0 auto; display: block; }
+                    .invoice-contenido { padding: 30px; }
+                    .servicios-titulo { text-align: center; font-size: 18px; font-weight: 800; color: #b91c1c; margin-top: 5px; margin-bottom: 10px; letter-spacing: 2px; font-family: 'Poppins', sans-serif; }
+                    .servicio-logos { text-align: center; margin: 15px 0; padding: 10px; background: #fef2f2; border-radius: 16px; border: 1px solid #fecaca; }
+                    .servicio-logos img { max-width: 80px; height: auto; margin: 0 10px; border-radius: 12px; }
+                    .servicio-logos span { font-size: 20px; font-weight: bold; color: #b91c1c; margin: 0 10px; }
+                    .company-info, .customer-info { font-size: 11px; line-height: 1.5; margin-bottom: 15px; border: 1px solid #e2e8f0; padding: 12px; border-radius: 12px; background: #fafafa; }
+                    .row-2col { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 15px; }
+                    .row-2col > div { flex: 1; }
+                    .detalle-suscripcion-box { background: #f0f9ff; border: 1px solid #bae6fd; border-left: 5px solid #0284c7; padding: 12px; margin-bottom: 15px; border-radius: 12px; font-size: 11px; line-height: 1.5; }
+                    .detalle-suscripcion-box strong { color: #0369a1; }
+                    .payment-method { background: #fef9c3; padding: 12px; font-size: 11px; border-left: 5px solid #eab308; margin-bottom: 15px; white-space: pre-line; border-radius: 12px; font-weight: 500; }
+                    table.invoice-items { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; font-family: 'Roboto Mono', monospace; }
+                    table.invoice-items th, table.invoice-items td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; vertical-align: top; }
+                    table.invoice-items th { background: #f1f5f9; font-weight: 700; font-family: 'Poppins', sans-serif; }
+                    .mensaje-exito { background: #d9f0e6; padding: 15px; margin: 20px 0; border-radius: 16px; font-size: 11px; font-family: 'Roboto Mono', monospace; border-left: 5px solid #15803d; line-height: 1.8; }
+                    .mensaje-exito strong { color: #166534; }
+                    .total-row { text-align: right; font-weight: 800; font-size: 16px; border-top: 2px solid #cbd5e1; padding-top: 12px; margin-top: 12px; font-family: 'Poppins', sans-serif; }
+                    .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
+                    .footer-thanks { text-align: center; margin-top: 20px; font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif; color: #475569; }
+                </style>
+            </head>
+            <body>
+                ${facturaHTML}
+            </body>
+            </html>
+        `);
+        iframeDoc.close();
+        
+        iframe.contentWindow.onload = function() {
+            iframe.contentWindow.print();
+            setTimeout(() => { document.body.removeChild(iframe); }, 1000);
+        };
     }
 
     document.getElementById('tasaBcv').addEventListener('input', () => { actualizarResumenPrecios(); generarFactura(); });
@@ -623,11 +782,12 @@
     document.getElementById('detalleSuscripcion').addEventListener('input', generarFactura);
     document.getElementById('pago_metodo').addEventListener('change', generarFactura);
     document.getElementById('tipoOperacion').addEventListener('change', () => { actualizarPreview(); actualizarResumenPrecios(); generarFactura(); });
-    ['fecha', 'cliente_nombre', 'cliente_cedula', 'cliente_tel', 'cliente_email'].forEach(id => document.getElementById(id).addEventListener('input', generarFactura));
+    ['cliente_nombre', 'cliente_cedula', 'cliente_tel', 'cliente_email'].forEach(id => document.getElementById(id).addEventListener('input', generarFactura));
     document.getElementById('fechaBcv').addEventListener('input', generarFactura);
     
     llenarSelectorPlanes();
     actualizarCampoPedido();
+    actualizarFechaHora();
     generarFactura();
 </script>
 </body>
