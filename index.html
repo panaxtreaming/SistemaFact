@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturador PanaXtreaming - Orden Corregido</title>
+    <title>Facturador PanaXtreaming - Planes Actualizados</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -283,7 +283,6 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        /* Mensaje de éxito (usuario, clave, etc.) - Ahora va antes del total */
         .mensaje-exito {
             background: #d9f0e6;
             padding: 15px;
@@ -476,29 +475,216 @@
         }
     }
 
+    // ==================== IMÁGENES DE LOGOS ====================
     const imgStella = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg";
     const imgPana = "https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg";
+    const imgFlujo = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg"; // Usamos la misma de STELLA como placeholder para FlujoTV
     
+    // ==================== PLANES ACTUALIZADOS ====================
     const planes = [
-        { nombre: "PANAXTREAMING", duracion: "Cuenta completa (4 dispositivos)", precio: 8.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa", dispositivos: "4 dispositivos" },
-        { nombre: "PANAXTREAMING", duracion: "Dos pantallas", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Dos pantallas", dispositivos: "2 dispositivos simultáneos" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "1 mes - 1 dispositivo", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "2 meses", precio: 6.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "PANTALLA PANAXTREAMING", duracion: "3 meses", precio: 9.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV", precio: 5.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + STELLA TV", precio: 5.00, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
-        { nombre: "COMBO", duracion: "PANAXTREAMING + FLUJO TV (alternativo)", precio: 4.50, imagenCombo: [imgPana, imgStella], esCombo: true, categoria: "pana", logoService: "combo", tipoServicio: "Combo", dispositivos: "Ambos servicios" },
-        { nombre: "STELLA TV", duracion: "1 mes - 1 dispositivo", precio: 4.50, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "STELLA TV", duracion: "2 meses", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "STELLA TV", duracion: "3 meses", precio: 12.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "STELLA TV", duracion: "6 meses", precio: 25.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "STELLA TV", duracion: "12 meses", precio: 45.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "STELLA TV", duracion: "6 meses adicional", precio: 15.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Extensión", dispositivos: "Mantiene dispositivos" },
-        { nombre: "STELLA TV", duracion: "12 meses adicional", precio: 29.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Extensión", dispositivos: "Mantiene dispositivos" },
-        { nombre: "STELLA TV", duracion: "2 pantallas", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Múltiples pantallas", dispositivos: "2 dispositivos simultáneos" },
-        { nombre: "STELLA TV", duracion: "Cuenta completa 3 dispositivos", precio: 10.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa", dispositivos: "3 dispositivos" },
-        { nombre: "FLUJO TV", duracion: "1 mes - 1 dispositivo", precio: 4.00, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella", tipoServicio: "Pantalla individual", dispositivos: "1 dispositivo" },
-        { nombre: "FLUJO TV", duracion: "Cuenta completa 3 dispositivos", precio: 8.50, imagen: imgStella, esCombo: false, categoria: "flujo", logoService: "stella", tipoServicio: "Cuenta completa", dispositivos: "3 dispositivos" }
+        // ========== PANAXTREAMING ==========
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "1 pantalla - 1 mes", 
+            precio: 3.00, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "1 pantalla - 1 mes", 
+            dispositivos: "1 dispositivo" 
+        },
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "2 pantallas - 1 mes", 
+            precio: 5.00, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "2 pantallas - 1 mes", 
+            dispositivos: "2 dispositivos" 
+        },
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
+            precio: 7.50, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "Cuenta completa 4 Dispositivos - 3 meses", 
+            precio: 16.00, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "Cuenta completa 4 Dispositivos - 6 meses", 
+            precio: 28.00, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "PANAXTREAMING", 
+            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
+            precio: 55.00, 
+            imagen: imgPana, 
+            esCombo: false, 
+            categoria: "pana", 
+            logoService: "pana", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        
+        // ========== STELLA TV ==========
+        { 
+            nombre: "STELLA TV", 
+            duracion: "1 pantalla - 1 mes", 
+            precio: 4.50, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "1 pantalla - 1 mes", 
+            dispositivos: "1 dispositivo" 
+        },
+        { 
+            nombre: "STELLA TV", 
+            duracion: "2 pantallas - 1 mes", 
+            precio: 8.00, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "2 pantallas - 1 mes", 
+            dispositivos: "2 dispositivos" 
+        },
+        { 
+            nombre: "STELLA TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
+            precio: 11.00, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "STELLA TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 3 meses", 
+            precio: 29.00, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "STELLA TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 6 meses", 
+            precio: 55.00, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "STELLA TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
+            precio: 84.00, 
+            imagen: imgStella, 
+            esCombo: false, 
+            categoria: "stella", 
+            logoService: "stella", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
+            dispositivos: "4 dispositivos" 
+        },
+        
+        // ========== FLUJO TV ==========
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "1 pantalla - 1 mes", 
+            precio: 4.00, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "1 pantalla - 1 mes", 
+            dispositivos: "1 dispositivo" 
+        },
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "2 pantallas - 1 mes", 
+            precio: 7.00, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "2 pantallas - 1 mes", 
+            dispositivos: "2 dispositivos" 
+        },
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
+            precio: 8.50, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 3 meses + 1 mes", 
+            precio: 24.00, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses + 1 mes", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 6 meses + 1 mes", 
+            precio: 45.00, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses + 1 mes", 
+            dispositivos: "4 dispositivos" 
+        },
+        { 
+            nombre: "FLUJO TV", 
+            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
+            precio: 78.00, 
+            imagen: imgFlujo, 
+            esCombo: false, 
+            categoria: "flujo", 
+            logoService: "flujo", 
+            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
+            dispositivos: "4 dispositivos" 
+        }
     ];
 
     let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
@@ -527,7 +713,7 @@
                 cat.planes.forEach((plan, idx) => {
                     const option = document.createElement('option');
                     option.value = planes.indexOf(plan);
-                    option.textContent = `   ${plan.nombre} - ${plan.duracion} - ${plan.tipoServicio} (${plan.dispositivos}) - $ ${formatNumberVES(plan.precio)} USD`;
+                    option.textContent = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
                     selector.appendChild(option);
                 });
             }
@@ -550,19 +736,14 @@
     
     function actualizarPreview() {
         document.getElementById('previewNombre').textContent = planSeleccionado.nombre;
-        document.getElementById('previewDuracion').textContent = `${planSeleccionado.duracion} | ${planSeleccionado.tipoServicio} | ${planSeleccionado.dispositivos}`;
+        document.getElementById('previewDuracion').textContent = planSeleccionado.duracion;
         document.getElementById('previewPrecio').textContent = `$ ${formatNumberVES(planSeleccionado.precio)} USD`;
         const tipoTexto = getTipoOperacionTexto();
-        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} (${planSeleccionado.tipoServicio} - ${planSeleccionado.dispositivos}) - $ ${formatNumberVES(planSeleccionado.precio)}`;
+        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} - $ ${formatNumberVES(planSeleccionado.precio)}`;
         document.getElementById('tipoBadge').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto}`;
         const previewImg = document.getElementById('previewImg');
-        if (planSeleccionado.esCombo && planSeleccionado.imagenCombo) {
-            previewImg.src = planSeleccionado.imagenCombo[0];
-            previewImg.style.border = "2px solid #dc2626";
-        } else {
-            previewImg.src = planSeleccionado.imagen || imgStella;
-            previewImg.style.border = "none";
-        }
+        previewImg.src = planSeleccionado.imagen || imgStella;
+        previewImg.style.border = "none";
     }
 
     function actualizarResumenPrecios() {
@@ -596,8 +777,8 @@
             return `<div class="servicio-logos"><img src="${imgPana}" alt="PANAXTREAMING"><span>🎬 SERVICIO CONTRATADO: PANAXTREAMING 🎬</span></div>`;
         } else if (service === 'stella') {
             return `<div class="servicio-logos"><img src="${imgStella}" alt="STELLA TV"><span>⭐ SERVICIO CONTRATADO: STELLA TV ⭐</span></div>`;
-        } else if (service === 'combo') {
-            return `<div class="servicio-logos"><img src="${imgPana}" alt="PANAXTREAMING"><span>+</span><img src="${imgStella}" alt="STELLA TV"><br><span>🎯 COMBO: PANAXTREAMING + STELLA TV 🎯</span></div>`;
+        } else if (service === 'flujo') {
+            return `<div class="servicio-logos"><img src="${imgFlujo}" alt="FLUJO TV"><span>🎬 SERVICIO CONTRATADO: FLUJO TV 🎬</span></div>`;
         }
         return '';
     }
@@ -649,7 +830,6 @@
             </tr>`;
         }
 
-        // Mensaje de éxito con los datos de la operación
         let mensajeExitoHtml = `
             <div class="mensaje-exito">
                 <strong>${tipoIcono} ${tipoOperacion} CON ÉXITO ${tipoIcono}</strong><br>
@@ -702,10 +882,8 @@
                         <tbody>${itemsHtml}</tbody>
                     </table>
                     
-                    <!-- MENSAJE DE ÉXITO - AHORA ANTES DEL TOTAL -->
                     ${mensajeExitoHtml}
                     
-                    <!-- TOTAL - AHORA DESPUÉS DEL MENSAJE DE ÉXITO -->
                     <div class="total-row">
                         TOTAL EN USD: $ ${formatNumberVES(totalUSD)}<br>
                         <span class="total-bs">🇻🇪 TOTAL EN BOLÍVARES (BCV ${fechaBcv}): ${formatNumberVES(totalBs)} Bs</span>
