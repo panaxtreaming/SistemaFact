@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturador PanaXtreaming - Corregido</title>
+    <title>Facturador PanaXtreaming - Nuevas Plataformas</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -283,6 +283,17 @@
             font-family: 'Poppins', sans-serif;
         }
         
+        .total-row { 
+            text-align: right; 
+            font-weight: 800; 
+            font-size: 16px; 
+            border-top: 2px solid #cbd5e1; 
+            padding-top: 12px; 
+            margin-top: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
+        
         .mensaje-agradecimiento {
             background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
             padding: 20px;
@@ -303,17 +314,6 @@
             color: #14532d;
             font-weight: 500;
         }
-        
-        .total-row { 
-            text-align: right; 
-            font-weight: 800; 
-            font-size: 16px; 
-            border-top: 2px solid #cbd5e1; 
-            padding-top: 12px; 
-            margin-top: 12px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
         
         .footer-thanks { 
             text-align: center; 
@@ -502,12 +502,16 @@
     // ==================== IMÁGENES DE LOGOS ====================
     const imgStella = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg";
     const imgPana = "https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg";
-    const imgFlujo = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg"; // Placeholder para FlujoTV
+    const imgFlujo = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg";
+    const imgNetflix = "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg";
+    const imgParamount = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg";
+    const imgAmazon = "https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo_%282022%29.svg";
+    const imgHBO = "https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg";
     
     // ==================== PLANES ACTUALIZADOS ====================
     const planes = [
         // ========== PANAXTREAMING ==========
-        { nombre: "PANAXTREAMING", duracion: "1 pantalla - 1 mes", precio: 4.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo" },
+        { nombre: "PANAXTREAMING", duracion: "1 pantalla - 1 dispositivo", precio: 4.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "1 pantalla - 1 dispositivo", dispositivos: "1 dispositivo" },
         { nombre: "PANAXTREAMING", duracion: "1 pantalla - 1 mes", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo" },
         { nombre: "PANAXTREAMING", duracion: "2 pantallas - 1 mes", precio: 5.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "2 pantallas - 1 mes", dispositivos: "2 dispositivos" },
         { nombre: "PANAXTREAMING", duracion: "Cuenta completa 4 Dispositivos - 1 mes", precio: 7.50, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", dispositivos: "4 dispositivos" },
@@ -529,7 +533,25 @@
         { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 1 mes", precio: 8.50, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", dispositivos: "4 dispositivos" },
         { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 3 meses + 1 mes", precio: 24.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 3 meses + 1 mes", dispositivos: "4 dispositivos" },
         { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 6 meses + 1 mes", precio: 45.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 6 meses + 1 mes", dispositivos: "4 dispositivos" },
-        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", precio: 78.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", dispositivos: "4 dispositivos" }
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", precio: 78.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", dispositivos: "4 dispositivos" },
+        
+        // ========== NETFLIX ==========
+        { nombre: "NETFLIX", duracion: "1 pantalla - 1 mes", precio: 5.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
+        { nombre: "NETFLIX", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 7.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        { nombre: "NETFLIX", duracion: "1 pantalla VIP - 1 mes", precio: 7.50, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla VIP - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
+        { nombre: "NETFLIX", duracion: "1 pantalla VIP - 1 mes (Distribuidor)", precio: 9.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla VIP - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        
+        // ========== PARAMOUNT ==========
+        { nombre: "PARAMOUNT", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgParamount, esCombo: false, categoria: "paramount", logoService: "paramount", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
+        { nombre: "PARAMOUNT", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgParamount, esCombo: false, categoria: "paramount", logoService: "paramount", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        
+        // ========== AMAZON PRIME ==========
+        { nombre: "AMAZON PRIME", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgAmazon, esCombo: false, categoria: "amazon", logoService: "amazon", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
+        { nombre: "AMAZON PRIME", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgAmazon, esCombo: false, categoria: "amazon", logoService: "amazon", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        
+        // ========== HBO MAX ==========
+        { nombre: "HBO MAX", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgHBO, esCombo: false, categoria: "hbo", logoService: "hbo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
+        { nombre: "HBO MAX", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgHBO, esCombo: false, categoria: "hbo", logoService: "hbo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true }
     ];
 
     let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
@@ -545,7 +567,11 @@
         let categorias = [
             { nombre: "📺 PANAXTREAMING", planes: planes.filter(p => p.categoria === "pana") },
             { nombre: "⭐ STELLA TV", planes: planes.filter(p => p.categoria === "stella") },
-            { nombre: "🎬 FLUJO TV", planes: planes.filter(p => p.categoria === "flujo") }
+            { nombre: "🎬 FLUJO TV", planes: planes.filter(p => p.categoria === "flujo") },
+            { nombre: "🎥 NETFLIX", planes: planes.filter(p => p.categoria === "netflix") },
+            { nombre: "🎬 PARAMOUNT", planes: planes.filter(p => p.categoria === "paramount") },
+            { nombre: "📦 AMAZON PRIME", planes: planes.filter(p => p.categoria === "amazon") },
+            { nombre: "🎭 HBO MAX", planes: planes.filter(p => p.categoria === "hbo") }
         ];
         categorias.forEach(cat => {
             if (cat.planes.length > 0) {
@@ -558,7 +584,12 @@
                 cat.planes.forEach((plan, idx) => {
                     const option = document.createElement('option');
                     option.value = planes.indexOf(plan);
-                    option.textContent = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
+                    // Mostrar "(Distribuidor)" en la selección
+                    let textoOpcion = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
+                    if (plan.esDistribuidor) {
+                        textoOpcion = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD (Distribuidor)`;
+                    }
+                    option.textContent = textoOpcion;
                     selector.appendChild(option);
                 });
             }
@@ -581,10 +612,15 @@
     
     function actualizarPreview() {
         document.getElementById('previewNombre').textContent = planSeleccionado.nombre;
-        document.getElementById('previewDuracion').textContent = planSeleccionado.duracion;
+        // En la vista previa también mostramos el distribuidor si aplica
+        let duracionPreview = planSeleccionado.duracion;
+        if (planSeleccionado.esDistribuidor) {
+            duracionPreview += " (Distribuidor)";
+        }
+        document.getElementById('previewDuracion').textContent = duracionPreview;
         document.getElementById('previewPrecio').textContent = `$ ${formatNumberVES(planSeleccionado.precio)} USD`;
         const tipoTexto = getTipoOperacionTexto();
-        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} - $ ${formatNumberVES(planSeleccionado.precio)}`;
+        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${duracionPreview} - $ ${formatNumberVES(planSeleccionado.precio)}`;
         document.getElementById('tipoBadge').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto}`;
         const previewImg = document.getElementById('previewImg');
         previewImg.src = planSeleccionado.imagen || imgStella;
@@ -624,6 +660,14 @@
             return `<div class="servicio-logos"><img src="${imgStella}" alt="STELLA TV"><span>⭐ SERVICIO CONTRATADO: STELLA TV ⭐</span></div>`;
         } else if (service === 'flujo') {
             return `<div class="servicio-logos"><img src="${imgFlujo}" alt="FLUJO TV"><span>🎬 SERVICIO CONTRATADO: FLUJO TV 🎬</span></div>`;
+        } else if (service === 'netflix') {
+            return `<div class="servicio-logos"><img src="${imgNetflix}" alt="NETFLIX" style="max-width: 120px;"><span>🎥 SERVICIO CONTRATADO: NETFLIX 🎥</span></div>`;
+        } else if (service === 'paramount') {
+            return `<div class="servicio-logos"><img src="${imgParamount}" alt="PARAMOUNT" style="max-width: 120px;"><span>🎬 SERVICIO CONTRATADO: PARAMOUNT 🎬</span></div>`;
+        } else if (service === 'amazon') {
+            return `<div class="servicio-logos"><img src="${imgAmazon}" alt="AMAZON PRIME" style="max-width: 120px;"><span>📦 SERVICIO CONTRATADO: AMAZON PRIME 📦</span></div>`;
+        } else if (service === 'hbo') {
+            return `<div class="servicio-logos"><img src="${imgHBO}" alt="HBO MAX" style="max-width: 120px;"><span>🎭 SERVICIO CONTRATADO: HBO MAX 🎭</span></div>`;
         }
         return '';
     }
@@ -657,6 +701,7 @@
             `;
         }
 
+        // En la factura NO se muestra "(Distribuidor)"
         let itemsHtml = `<tr>
             <td><strong>${tipoIcono} ${tipoOperacion}</strong><br>
                 <strong>📺 ${planSeleccionado.nombre}</strong><br>
