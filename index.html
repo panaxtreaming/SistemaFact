@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturador PanaXtreaming - Nuevas Plataformas</title>
+    <title>Facturador PanaXtreaming - Distribuidor Oculto</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -123,10 +123,12 @@
         .plan-preview-img { 
             width: 80px; 
             height: 80px; 
-            object-fit: cover; 
+            object-fit: contain; 
             border-radius: 16px; 
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: white;
+            padding: 5px;
         }
         .plan-preview-info { flex: 1; }
         .plan-preview-nombre { font-weight: 800; font-size: 1.2rem; color: #b91c1c; letter-spacing: -0.3px; }
@@ -220,6 +222,8 @@
             margin: 0 10px;
             border-radius: 12px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background: white;
+            padding: 5px;
         }
         .servicio-logos span {
             font-size: 20px;
@@ -537,21 +541,21 @@
         
         // ========== NETFLIX ==========
         { nombre: "NETFLIX", duracion: "1 pantalla - 1 mes", precio: 5.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
-        { nombre: "NETFLIX", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 7.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        { nombre: "NETFLIX", duracion: "1 pantalla - 1 mes", precio: 7.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
         { nombre: "NETFLIX", duracion: "1 pantalla VIP - 1 mes", precio: 7.50, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla VIP - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
-        { nombre: "NETFLIX", duracion: "1 pantalla VIP - 1 mes (Distribuidor)", precio: 9.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla VIP - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        { nombre: "NETFLIX", duracion: "1 pantalla VIP - 1 mes", precio: 9.00, imagen: imgNetflix, esCombo: false, categoria: "netflix", logoService: "netflix", tipoServicio: "1 pantalla VIP - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
         
         // ========== PARAMOUNT ==========
         { nombre: "PARAMOUNT", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgParamount, esCombo: false, categoria: "paramount", logoService: "paramount", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
-        { nombre: "PARAMOUNT", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgParamount, esCombo: false, categoria: "paramount", logoService: "paramount", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        { nombre: "PARAMOUNT", duracion: "1 pantalla - 1 mes", precio: 5.00, imagen: imgParamount, esCombo: false, categoria: "paramount", logoService: "paramount", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
         
         // ========== AMAZON PRIME ==========
         { nombre: "AMAZON PRIME", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgAmazon, esCombo: false, categoria: "amazon", logoService: "amazon", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
-        { nombre: "AMAZON PRIME", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgAmazon, esCombo: false, categoria: "amazon", logoService: "amazon", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
+        { nombre: "AMAZON PRIME", duracion: "1 pantalla - 1 mes", precio: 5.00, imagen: imgAmazon, esCombo: false, categoria: "amazon", logoService: "amazon", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true },
         
         // ========== HBO MAX ==========
         { nombre: "HBO MAX", duracion: "1 pantalla - 1 mes", precio: 2.50, imagen: imgHBO, esCombo: false, categoria: "hbo", logoService: "hbo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: false },
-        { nombre: "HBO MAX", duracion: "1 pantalla - 1 mes (Distribuidor)", precio: 5.00, imagen: imgHBO, esCombo: false, categoria: "hbo", logoService: "hbo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true }
+        { nombre: "HBO MAX", duracion: "1 pantalla - 1 mes", precio: 5.00, imagen: imgHBO, esCombo: false, categoria: "hbo", logoService: "hbo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo", esDistribuidor: true }
     ];
 
     let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
@@ -584,7 +588,7 @@
                 cat.planes.forEach((plan, idx) => {
                     const option = document.createElement('option');
                     option.value = planes.indexOf(plan);
-                    // Mostrar "(Distribuidor)" en la selección
+                    // El "(Distribuidor)" SOLO se muestra en el selector
                     let textoOpcion = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD`;
                     if (plan.esDistribuidor) {
                         textoOpcion = `   ${plan.duracion} - $ ${formatNumberVES(plan.precio)} USD (Distribuidor)`;
@@ -612,15 +616,12 @@
     
     function actualizarPreview() {
         document.getElementById('previewNombre').textContent = planSeleccionado.nombre;
-        // En la vista previa también mostramos el distribuidor si aplica
-        let duracionPreview = planSeleccionado.duracion;
-        if (planSeleccionado.esDistribuidor) {
-            duracionPreview += " (Distribuidor)";
-        }
-        document.getElementById('previewDuracion').textContent = duracionPreview;
+        // En la vista previa NO se muestra "(Distribuidor)"
+        document.getElementById('previewDuracion').textContent = planSeleccionado.duracion;
         document.getElementById('previewPrecio').textContent = `$ ${formatNumberVES(planSeleccionado.precio)} USD`;
         const tipoTexto = getTipoOperacionTexto();
-        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${duracionPreview} - $ ${formatNumberVES(planSeleccionado.precio)}`;
+        // En el resumen NO se muestra "(Distribuidor)"
+        document.getElementById('planSeleccionadoTexto').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto} - ${planSeleccionado.nombre} - ${planSeleccionado.duracion} - $ ${formatNumberVES(planSeleccionado.precio)}`;
         document.getElementById('tipoBadge').innerHTML = `${getTipoOperacionIcono()} ${tipoTexto}`;
         const previewImg = document.getElementById('previewImg');
         previewImg.src = planSeleccionado.imagen || imgStella;
@@ -701,7 +702,7 @@
             `;
         }
 
-        // En la factura NO se muestra "(Distribuidor)"
+        // En la factura NO se muestra "(Distribuidor)" en ninguna parte
         let itemsHtml = `<tr>
             <td><strong>${tipoIcono} ${tipoOperacion}</strong><br>
                 <strong>📺 ${planSeleccionado.nombre}</strong><br>
