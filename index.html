@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturador PanaXtreaming - Planes Actualizados</title>
+    <title>Facturador PanaXtreaming - Corregido</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -283,18 +283,25 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        .mensaje-exito {
-            background: #d9f0e6;
-            padding: 15px;
+        .mensaje-agradecimiento {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            padding: 20px;
             margin: 20px 0;
             border-radius: 16px;
-            font-size: 11px;
-            font-family: 'Roboto Mono', monospace;
-            border-left: 5px solid #15803d;
-            line-height: 1.8;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid #86efac;
         }
-        .mensaje-exito strong {
+        .mensaje-agradecimiento .gracias {
+            font-size: 22px;
+            font-weight: 800;
             color: #166534;
+            margin-bottom: 8px;
+        }
+        .mensaje-agradecimiento .motivacion {
+            font-size: 13px;
+            color: #14532d;
+            font-weight: 500;
         }
         
         .total-row { 
@@ -475,216 +482,54 @@
         }
     }
 
+    const mensajesMotivadores = [
+        "🌟 ¡Gracias por confiar en nosotros! 🌟",
+        "🎉 ¡Elegiste la mejor calidad! 🎉",
+        "💪 ¡Disfruta al máximo tu servicio! 💪",
+        "🏆 ¡Gracias por ser parte de la familia PanaXtreaming! 🏆",
+        "📺 ¡Prepárate para vivir una experiencia increíble! 📺",
+        "✨ ¡Hiciste una excelente elección! ✨",
+        "🎬 ¡Que disfrutes cada momento con tu nuevo servicio! 🎬",
+        "💎 ¡Gracias por preferir PanaXtreaming! 💎",
+        "🔥 ¡La mejor experiencia de entretenimiento te espera! 🔥",
+        "⭐ ¡Valoramos tu confianza, gracias por elegirnos! ⭐"
+    ];
+    
+    function getMensajeMotivador() {
+        return mensajesMotivadores[Math.floor(Math.random() * mensajesMotivadores.length)];
+    }
+
     // ==================== IMÁGENES DE LOGOS ====================
     const imgStella = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg";
     const imgPana = "https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg";
-    const imgFlujo = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg"; // Usamos la misma de STELLA como placeholder para FlujoTV
+    const imgFlujo = "https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg"; // Placeholder para FlujoTV
     
     // ==================== PLANES ACTUALIZADOS ====================
     const planes = [
         // ========== PANAXTREAMING ==========
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "1 pantalla - 1 mes", 
-            precio: 3.00, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "1 pantalla - 1 mes", 
-            dispositivos: "1 dispositivo" 
-        },
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "2 pantallas - 1 mes", 
-            precio: 5.00, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "2 pantallas - 1 mes", 
-            dispositivos: "2 dispositivos" 
-        },
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
-            precio: 8.0, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "Cuenta completa 4 Dispositivos - 3 meses", 
-            precio: 16.00, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "Cuenta completa 4 Dispositivos - 6 meses", 
-            precio: 28.00, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "PANAXTREAMING", 
-            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
-            precio: 55.00, 
-            imagen: imgPana, 
-            esCombo: false, 
-            categoria: "pana", 
-            logoService: "pana", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
-            dispositivos: "4 dispositivos" 
-        },
+        { nombre: "PANAXTREAMING", duracion: "1 pantalla - 1 dispositivo", precio: 4.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "1 pantalla - 1 dispositivo", dispositivos: "1 dispositivo" },
+        { nombre: "PANAXTREAMING", duracion: "1 pantalla - 1 mes", precio: 3.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo" },
+        { nombre: "PANAXTREAMING", duracion: "2 pantallas - 1 mes", precio: 5.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "2 pantallas - 1 mes", dispositivos: "2 dispositivos" },
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa 4 Dispositivos - 1 mes", precio: 7.50, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", dispositivos: "4 dispositivos" },
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa 4 Dispositivos - 3 meses", precio: 16.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", dispositivos: "4 dispositivos" },
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa 4 Dispositivos - 6 meses", precio: 28.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", dispositivos: "4 dispositivos" },
+        { nombre: "PANAXTREAMING", duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", precio: 55.00, imagen: imgPana, esCombo: false, categoria: "pana", logoService: "pana", tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", dispositivos: "4 dispositivos" },
         
         // ========== STELLA TV ==========
-        { 
-            nombre: "STELLA TV", 
-            duracion: "1 pantalla - 1 mes", 
-            precio: 4.50, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "1 pantalla - 1 mes", 
-            dispositivos: "1 dispositivo" 
-        },
-        { 
-            nombre: "STELLA TV", 
-            duracion: "2 pantallas - 1 mes", 
-            precio: 8.00, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "2 pantallas - 1 mes", 
-            dispositivos: "2 dispositivos" 
-        },
-        { 
-            nombre: "STELLA TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
-            precio: 11.00, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "STELLA TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 3 meses", 
-            precio: 29.00, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "STELLA TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 6 meses", 
-            precio: 55.00, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "STELLA TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
-            precio: 84.00, 
-            imagen: imgStella, 
-            esCombo: false, 
-            categoria: "stella", 
-            logoService: "stella", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
-            dispositivos: "4 dispositivos" 
-        },
+        { nombre: "STELLA TV", duracion: "1 pantalla - 1 mes", precio: 4.50, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo" },
+        { nombre: "STELLA TV", duracion: "2 pantallas - 1 mes", precio: 8.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "2 pantallas - 1 mes", dispositivos: "2 dispositivos" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 4 Dispositivos - 1 mes", precio: 11.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", dispositivos: "4 dispositivos" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 4 Dispositivos - 3 meses", precio: 29.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa 4 dispositivos - 3 meses", dispositivos: "4 dispositivos" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 4 Dispositivos - 6 meses", precio: 55.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa 4 dispositivos - 6 meses", dispositivos: "4 dispositivos" },
+        { nombre: "STELLA TV", duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", precio: 84.00, imagen: imgStella, esCombo: false, categoria: "stella", logoService: "stella", tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", dispositivos: "4 dispositivos" },
         
         // ========== FLUJO TV ==========
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "1 pantalla - 1 mes", 
-            precio: 4.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "1 pantalla - 1 mes", 
-            dispositivos: "1 dispositivo" 
-        },
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "2 pantallas - 1 mes", 
-            precio: 7.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "2 pantallas - 1 mes", 
-            dispositivos: "2 dispositivos" 
-        },
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 1 mes", 
-            precio: 9.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 3 meses + 1 mes", 
-            precio: 24.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 3 meses + 1 mes", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 6 meses + 1 mes", 
-            precio: 45.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 6 meses + 1 mes", 
-            dispositivos: "4 dispositivos" 
-        },
-        { 
-            nombre: "FLUJO TV", 
-            duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", 
-            precio: 78.00, 
-            imagen: imgFlujo, 
-            esCombo: false, 
-            categoria: "flujo", 
-            logoService: "flujo", 
-            tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", 
-            dispositivos: "4 dispositivos" 
-        }
+        { nombre: "FLUJO TV", duracion: "1 pantalla - 1 mes", precio: 4.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "1 pantalla - 1 mes", dispositivos: "1 dispositivo" },
+        { nombre: "FLUJO TV", duracion: "2 pantallas - 1 mes", precio: 7.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "2 pantallas - 1 mes", dispositivos: "2 dispositivos" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 1 mes", precio: 8.50, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 1 mes", dispositivos: "4 dispositivos" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 3 meses + 1 mes", precio: 24.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 3 meses + 1 mes", dispositivos: "4 dispositivos" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 6 meses + 1 mes", precio: 45.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 6 meses + 1 mes", dispositivos: "4 dispositivos" },
+        { nombre: "FLUJO TV", duracion: "Cuenta completa 4 Dispositivos - 12 meses + 2 meses", precio: 78.00, imagen: imgFlujo, esCombo: false, categoria: "flujo", logoService: "flujo", tipoServicio: "Cuenta completa 4 dispositivos - 12 meses + 2 meses", dispositivos: "4 dispositivos" }
     ];
 
     let contadorPedido = localStorage.getItem('contadorPedido') ? parseInt(localStorage.getItem('contadorPedido')) : 1;
@@ -800,6 +645,7 @@
         let tipoOperacion = getTipoOperacionTexto();
         let tipoIcono = getTipoOperacionIcono();
         let logosHtml = getLogosHtml();
+        let mensajeMotivador = getMensajeMotivador();
 
         let detalleHtml = '';
         if (detalleSuscripcion.trim() !== "") {
@@ -829,16 +675,6 @@
                 <td style="text-align:right">$ ${formatNumberVES(extraUSD)}</td>
             </tr>`;
         }
-
-        let mensajeExitoHtml = `
-            <div class="mensaje-exito">
-                <strong>${tipoIcono} ${tipoOperacion} CON ÉXITO ${tipoIcono}</strong><br>
-                👤 Usuario: panastella103<br>
-                🔑 Nueva clave: 252525<br>
-                📅 Fecha de ${tipoOperacion.toLowerCase()}: ${fecha}<br>
-                💲 Pagado: $ ${formatNumberVES(totalUSD)} / ${formatNumberVES(totalBs)} Bs
-            </div>
-        `;
 
         document.getElementById('factura-aqui').innerHTML = `
             <div class="invoice" id="facturaParaImprimir">
@@ -882,14 +718,17 @@
                         <tbody>${itemsHtml}</tbody>
                     </table>
                     
-                    ${mensajeExitoHtml}
-                    
                     <div class="total-row">
                         TOTAL EN USD: $ ${formatNumberVES(totalUSD)}<br>
                         <span class="total-bs">🇻🇪 TOTAL EN BOLÍVARES (BCV ${fechaBcv}): ${formatNumberVES(totalBs)} Bs</span>
                     </div>
                     
-                    <div class="footer-thanks">✨ ¡Gracias por su pedido! ✨<br>${fecha} - Pedido ${pedido}</div>
+                    <div class="mensaje-agradecimiento">
+                        <div class="gracias">🙏 ¡GRACIAS POR SU COMPRA! 🙏</div>
+                        <div class="motivacion">${mensajeMotivador}</div>
+                    </div>
+                    
+                    <div class="footer-thanks">✨ ${fecha} - Pedido ${pedido} ✨</div>
                 </div>
             </div>`;
         actualizarResumenPrecios();
@@ -935,10 +774,11 @@
                     table.invoice-items { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; font-family: 'Roboto Mono', monospace; }
                     table.invoice-items th, table.invoice-items td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; vertical-align: top; }
                     table.invoice-items th { background: #f1f5f9; font-weight: 700; font-family: 'Poppins', sans-serif; }
-                    .mensaje-exito { background: #d9f0e6; padding: 15px; margin: 20px 0; border-radius: 16px; font-size: 11px; font-family: 'Roboto Mono', monospace; border-left: 5px solid #15803d; line-height: 1.8; }
-                    .mensaje-exito strong { color: #166534; }
                     .total-row { text-align: right; font-weight: 800; font-size: 16px; border-top: 2px solid #cbd5e1; padding-top: 12px; margin-top: 12px; font-family: 'Poppins', sans-serif; }
                     .total-bs { color: #15803d; font-size: 14px; font-weight: 700; }
+                    .mensaje-agradecimiento { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); padding: 20px; margin: 20px 0; border-radius: 16px; text-align: center; font-family: 'Poppins', sans-serif; border: 1px solid #86efac; }
+                    .mensaje-agradecimiento .gracias { font-size: 22px; font-weight: 800; color: #166534; margin-bottom: 8px; }
+                    .mensaje-agradecimiento .motivacion { font-size: 13px; color: #14532d; font-weight: 500; }
                     .footer-thanks { text-align: center; margin-top: 20px; font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif; color: #475569; }
                 </style>
             </head>
